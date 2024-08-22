@@ -7,6 +7,9 @@ const app = express();
 
 app.use(cors());
 
+//public folder
+app.use(express.static("public"));
+
 //Db Connection
 dbConnection();
 
