@@ -76,19 +76,29 @@ const googleSignIn = async (req, res = response) => {
     });
   }
 
-  res.status(200).json({
-    ok: true,
-    msg: req.body.token,
-  });
+  // res.status(200).json({
+  //   ok: true,
+  //   msg: req.body.token,
+  // });
 };
 
 const renewToken = async (req, res = response) => {
   const uid = req.uid;
+
   //Generate web token
   const token = await generateJWT(uid);
+  //Get user by UID
+  const user = await User.findById(uid);
+  if (!user) {
+    return res.status(404).json({
+      ok: false,
+      msg: "User not found.",
+    });
+  }
   res.json({
     ok: true,
     token,
+    user,
   });
 };
 
