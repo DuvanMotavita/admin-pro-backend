@@ -11,6 +11,24 @@ const getMedics = async (req, res = response) => {
     medics,
   });
 };
+const getMedicsById = async (req, res = response) => {
+  const id = req.params.id;
+  try {
+    const medic = await Medic.findById(id)
+      .populate("user", "name img")
+      .populate("hospital", "name");
+
+    res.json({
+      ok: true,
+      medic,
+    });
+  } catch (error) {
+    res.json({
+      ok: false,
+      msg: "Medic not found, contact admin if the error persist",
+    });
+  }
+};
 
 const createMedics = async (req, res = response) => {
   const uid = req.uid;
@@ -103,4 +121,5 @@ module.exports = {
   createMedics,
   updateMedics,
   deleteMedics,
+  getMedicsById,
 };
