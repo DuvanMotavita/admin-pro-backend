@@ -1,1 +1,4 @@
 node_modules/
+uploads/hospitals/*
+uploads/medics/*
+uploads/users/*
